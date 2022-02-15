@@ -7,6 +7,7 @@ import StartQuiz from "./Pages/StartQuiz";
 import store from "./Redux/store";
 import { Provider } from "react-redux";
 import QuestionDemo from "./Components/QuestionDemo";
+import Questions from "./Components/Questions";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/login' element={<Login />}/>
           <Route path='quiz' element={<StartQuiz />} />
           <Route path="redux" element={<QuestionDemo/>}/>
+          <Route path="question" element={<Questions/>}/>
         </Routes>
       </Provider>
     </div>
