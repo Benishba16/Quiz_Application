@@ -1,0 +1,29 @@
+.login_form{
+    margin-top: 200px;
+    align-items: center;
+}
+
+.login_title{
+    margin-top: 10px;
+}
+
+
+.reset_button{
+    margin-top: 20px;
+}
+
+.button{
+    margin-left: 100px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.danger_message{
+    margin-top: -30px;
+}
+
+.quiz_button{
+    margin-top: -30px;
+}

@@ -1,0 +1,9 @@
+.select{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.start_button{
+    margin-top: 100px;
+}
