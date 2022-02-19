@@ -5,8 +5,8 @@
 }
 
 .text{
-    margin-top: -50px;
-    /* border: 2px solid red; */
+    margin-top: -180px;
+    /* border: 2px solid black; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,4 +37,9 @@
 
 .danger{
     margin-left: 50px;
+}
+
+.start_button{
+    transform: translateY(-250%);
+    /* border: 2px solid green; */
 }

@@ -1,42 +1,26 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Button, Typography } from "antd";
-import "./Questions.css";
-
-const { Title, Text } = Typography;
-
+import axios from "axios";
+import {questionValue} from "../Redux/actions"
+import DisplayQuestion from "../Components/DisplayQuestion";
 
 function Questions(props) {
-  const [values, setValues] = useState([]);
+  const category = props.category;
+  const mode = props.mode;
 
   useEffect(() => {
-    axios
-      .get(
-        `https://opentdb.com/api.php?amount=3&category=${props.category}&difficulty=${props.mode}&type=multiple`
-      )
-      .then((res) => {
-        console.log("Response", res.data.results);
-        setValues(res.data.results);
-      })
-      .then((err) => {
-        console.log("Error", err);
-      });
-  }, []);
+    axios.get(
+      `https://opentdb.com/api.php?amount=3&category=${category}&difficulty=${mode}&type=multiple`
+    )
+    .then((response) => {
+      console.log(response);
+      props.onQuestionValue(response.data.results);
+    })
+  });
 
-
-
-  return (
-    <div className='questions'>
-      <div className='question_title'>
-        <Title>Question {}/{}</Title>
-      </div>
-      <div className='question'>
-        <Text style={{ fontSize: "25px" }}>
-        </Text>
-      </div>
-    </div>
-  );
+  return <div>
+    <DisplayQuestion/>
+  </div>;
 }
 
 const mapStateToProps = (state) => {
@@ -46,4 +30,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Questions);
+const mapDispatchToProps = dispatch => {
+  return{
+    onQuestionValue: (question) => {
+      dispatch(questionValue(question))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);

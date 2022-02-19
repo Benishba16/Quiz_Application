@@ -112,11 +112,14 @@ function Login() {
             size='large'
             type='primary'
             htmlType='submit'
-            onClick={() => navigate("quiz")}
+            onClick={() => navigate("/quiz")}
           >
             Start Quiz
           </Button>
         ) : null}
+      </div>
+      <div>
+        <Button type="primary" htmlType="submit" onClick={() => navigate("/")}>Back to Signup</Button>
       </div>
     </div>
   );
