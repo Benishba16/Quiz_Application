@@ -7,3 +7,12 @@
 .start_button{
     margin-top: 100px;
 }
+
+@media (max-width: 480px) {
+    .select{
+        margin-top: -200px;
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+    }
+}

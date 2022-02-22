@@ -20,11 +20,11 @@ function SignUp() {
     console.log(values);
     if (values.email === localStorage.getItem("Email")) {
       setAlready(!already);
-    } 
-    else {
-      setStart(true)
+    } else {
+      setStart(true);
       localStorage.setItem("Email", values.email);
       localStorage.setItem("Password", values.password);
+      localStorage.setItem("Username", values.username);
     }
   };
   const onFinishFailed = (errorInfo) => {
@@ -32,122 +32,122 @@ function SignUp() {
   };
 
   const onReset = () => {
-    form.resetFields(["note"]);
+    form.resetFields();
+    if (already) {
+      setAlready(!already);
+    }
   };
 
   return (
-    <div>
-      <div>
-          <div className='form'>
-            <Title>SignUp</Title>
-            <div>
-              <Form
-                size='large'
-                name='basic'
-                labelCol={{ span: 7 }}
-                wrapperCol={{ span: 10 }}
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete='off'
-                form={form}
-              >
-                <Form.Item
-                  label='Username'
-                  name='username'
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your username!",
-                    },
-                    { whitespace: true },
-                    { min: 3 },
-                  ]}
-                  hasFeedback
-                >
-                  <Input
-                    prefix={<UserOutlined className='site-form-item-icon' />}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label='Email'
-                  name='email'
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your email!",
-                    },
-                    {
-                      type: "email",
-                      message: "Enter valid mail id!",
-                    },
-                    {
-                      message: "Mail already exist",
-                    },
-                  ]}
-                  hasFeedback
-                >
-                  <Input
-                    prefix={<MailOutlined className='site-form-item-icon' />}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label='Password'
-                  name='password'
-                  rules={[
-                    {
-                      pattern:
-                        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9-]+)*$/,
-                      required: true,
-                      message: "Please input your password!",
-                    },
-                    { min: 6 },
-                  ]}
-                  hasFeedback
-                >
-                  <Input.Password
-                    prefix={<LockOutlined className='site-form-item-icon' />}
-                  />
-                </Form.Item>
-                <Form.Item wrapperCol={{ offset: 5, span: 13 }}>
-                  <div className='buttons'>
-                    <div className='submit_button'>
-                      <Button size='large' type='primary' htmlType='submit'>
-                        Submit
-                      </Button>
-                    </div>
-                    <div className='reset_button'>
-                      <Button size='large' htmlType='button' onClick={onReset}>
-                        Reset
-                      </Button>
-                    </div>
-                  </div>
-                  <div className='danger'>
-                    <Form.Item>
-                      {already ? (
-                        <Text type='danger' strong>
-                          Mail id is already exist!
-                        </Text>
-                      ) : null}
-                    </Form.Item>
-                  </div>
-                </Form.Item>
-              </Form>
-              <div className='start_button'>
-                {start ? (
-                  <Button type='primary' onClick={() => navigate("/quiz")}>
-                    Start Quiz
-                  </Button>
-                ) : null}
-              </div>
-              <div className='text'>
-                <Text strong>
-                  Already have an account?
-                  <Button type="link" onClick={() => navigate("/login")}>Login</Button>
-                </Text>
-              </div>
-            </div>
+    <div className='form'>
+      <Title>SignUp</Title>
+      <Form
+        size='large'
+        name='basic'
+        labelCol={{ span: 7 }}
+        wrapperCol={{ span: 10 }}
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete='off'
+        form={form}
+      >
+        <Form.Item
+          label='Username'
+          name='username'
+          rules={[
+            {
+              required: true,
+              message: "Please input your username!",
+            },
+            { whitespace: true },
+            { min: 3 },
+          ]}
+          hasFeedback
+        >
+          <Input prefix={<UserOutlined className='site-form-item-icon' />} />
+        </Form.Item>
+        <Form.Item
+          label='Email'
+          name='email'
+          rules={[
+            {
+              required: true,
+              message: "Please input your email!",
+            },
+            {
+              type: "email",
+              message: "Enter valid mail id!",
+            },
+            {
+              message: "Mail already exist",
+            },
+          ]}
+          hasFeedback
+        >
+          <Input prefix={<MailOutlined className='site-form-item-icon' />} />
+        </Form.Item>
+        <Form.Item
+          label='Password'
+          name='password'
+          rules={[
+            {
+              pattern:
+                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9-]+)*$/,
+              required: true,
+              message: "Please input your password!",
+            },
+            { min: 6 },
+          ]}
+          hasFeedback
+        >
+          <Input.Password
+            prefix={<LockOutlined className='site-form-item-icon' />}
+          />
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 5, span: 13 }}>
+          <div className='buttons'>
+          <Button
+            className='submit_button'
+            size='large'
+            type='primary'
+            htmlType='submit'
+          >
+            Submit
+          </Button>
+          <Button
+            className='reset_button'
+            size='large'
+            htmlType='button'
+            onClick={onReset}
+          >
+            Reset
+          </Button>
           </div>
+        </Form.Item>
+      </Form>
+      {already ? (
+        <Text className='already_exist' type='danger' strong>
+          Mail id is already exist!
+        </Text>
+      ) : null}
+      <div className="exist_submit">
+      <Text className='text' strong>
+        Already have an account?
+        <Button type='link' onClick={() => navigate("/login")}>
+          Login
+        </Button>
+      </Text>
+      {start ? (
+        <Button
+          className='start_button'
+          type='primary'
+          size="large"
+          onClick={() => navigate("/quiz")}
+        >
+          Start Quiz
+        </Button>
+      ): null}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Button, Card, Typography} from "antd";
 import { questionIndex, scoreValue } from "../Redux/actions";
 import { useNavigate } from "react-router-dom";
+import {decode} from "html-entities";
 
 const {Title, Text} = Typography; 
 
@@ -50,14 +51,12 @@ function DisplayQuestion(props) {
         <Title>Question {props.questionIndex + 1}</Title>
       </div>
       <div>
-        <Text style={{fontSize: 35}}>{props.questions[props.questionIndex].question}</Text>
+        <Text style={{fontSize: 35}}>{decode(props.questions[props.questionIndex].question)}</Text>
       </div>
       <div>
         {options.map((option,  id) => (
           <div>
-          <Card key={id} style={{width: 500}}>
-            <Button onClick={handleClick}>{option}</Button>
-          </Card><br/>
+            <Button key={id} onClick={handleClick}>{decode(option)}</Button>
           </div>
         ))}
       </div>

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 function StartQuiz(props) {
+
   const navigate = useNavigate();
 
   let [category, setCategory] = useState("");
@@ -34,6 +35,8 @@ function StartQuiz(props) {
     console.log("Mode", mode);
     props.onModeValue(mode);
   };
+
+  
   return (
     <div>
       <div className='quiz_info'>
@@ -75,7 +78,7 @@ function StartQuiz(props) {
           size='large'
           type='primary'
           htmlType='submit'
-          onClick={() => navigate("/question")}
+          onClick={() => navigate("/mode")}
         >
           Start Quiz
         </Button>

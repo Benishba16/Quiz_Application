@@ -1,5 +1,11 @@
+/* .login{
+    border: 2px solid yellow;
+} */
+
 .login_form{
-    margin-top: 200px;
+    margin-top: 70px;
+    height: 50vh;
+    /* border: 2px solid red; */
     align-items: center;
 }
 
@@ -7,17 +13,13 @@
     margin-top: 10px;
 }
 
-
-.reset_button{
-    margin-top: 20px;
-}
-
 .button{
-    margin-left: 100px;
-    width: 500px;
+    /* border: 2px solid black; */
+    margin-left: 200px;
+    width: 30vw;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .danger_message{
@@ -25,5 +27,36 @@
 }
 
 .quiz_button{
-    margin-top: -30px;
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.start_button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 2px solid green; */
+}
+
+
+.check_text{
+    margin-top: -40px;
+}
+
+@media (max-width: 480px) {
+    .quiz_button{
+        margin-top: 200px;
+        /* border: 2px solid red; */
+    }
+    .button{
+        margin-left: -100px;
+        /* border: 2px solid yellow; */
+    }
+    .check_text{
+        margin-left: -120px;
+        /* border: 2px solid red; */
+    }
 }
