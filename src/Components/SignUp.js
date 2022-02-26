@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Typography } from "antd";
-import { Form, Input, Button } from "antd";
+import { Alert, Typography } from "antd";
+import { Form, Input, Button, Card } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import "./SignUp.css";
-import Login from "./Login";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -14,18 +13,21 @@ function SignUp() {
   const [form] = Form.useForm();
 
   const [already, setAlready] = useState(false);
-  const [start, setStart] = useState(false);
+  const [start, setStart] = useState(false)
 
   const onFinish = (values) => {
     console.log(values);
     if (values.email === localStorage.getItem("Email")) {
       setAlready(!already);
     } else {
-      setStart(true);
+      setStart(true)
       localStorage.setItem("Email", values.email);
       localStorage.setItem("Password", values.password);
       localStorage.setItem("Username", values.username);
+      // setInterval(() => navigate("/quiz"),1500);
+      navigate("/quiz");
     }
+    form.resetFields();
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed: ", errorInfo);
@@ -39,116 +41,125 @@ function SignUp() {
   };
 
   return (
-    <div className='form'>
-      <Title>SignUp</Title>
-      <Form
-        size='large'
-        name='basic'
-        labelCol={{ span: 7 }}
-        wrapperCol={{ span: 10 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete='off'
-        form={form}
-      >
-        <Form.Item
-          label='Username'
-          name='username'
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-            },
-            { whitespace: true },
-            { min: 3 },
-          ]}
-          hasFeedback
+    <div>
+      <div>
+        <Title className='signup_title'>SignUp</Title>
+        <Form
+          size='large'
+          name='basic'
+          wrapperCol={{ span: 19 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete='off'
+          form={form}
+          className='signup_form'
         >
-          <Input prefix={<UserOutlined className='site-form-item-icon' />} />
-        </Form.Item>
-        <Form.Item
-          label='Email'
-          name='email'
-          rules={[
-            {
-              required: true,
-              message: "Please input your email!",
-            },
-            {
-              type: "email",
-              message: "Enter valid mail id!",
-            },
-            {
-              message: "Mail already exist",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input prefix={<MailOutlined className='site-form-item-icon' />} />
-        </Form.Item>
-        <Form.Item
-          label='Password'
-          name='password'
-          rules={[
-            {
-              pattern:
-                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9-]+)*$/,
-              required: true,
-              message: "Please input your password!",
-            },
-            { min: 6 },
-          ]}
-          hasFeedback
-        >
-          <Input.Password
-            prefix={<LockOutlined className='site-form-item-icon' />}
-          />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 5, span: 13 }}>
-          <div className='buttons'>
-          <Button
-            className='submit_button'
-            size='large'
-            type='primary'
-            htmlType='submit'
+          <Form.Item
+            className='signup_item'
+            name='username'
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+                required: true,
+              },
+              {
+                pattern: /^\w[\w.\s]{2,18}\w$/,
+                whitespace: true,
+                message: "Enter valid username ",
+              },
+              { min: 5 },
+            ]}
+            hasFeedback
           >
-            Submit
-          </Button>
-          <Button
-            className='reset_button'
-            size='large'
-            htmlType='button'
-            onClick={onReset}
+            <Input
+              placeholder='Username'
+              prefix={<UserOutlined className='site-form-item-icon' />}
+            />
+          </Form.Item>
+          <Form.Item
+            className='signup_item'
+            name='email'
+            rules={[
+              {
+                required: true,
+                message: "Please input your email!",
+              },
+              {
+                // type: "email",
+                pattern:
+                  /^([a-zA-Z0-9])+.[a-z0-9]+@([a-zA-Z]{4,})+.([a-z]{2,3})+$/,
+                message: "Enter valid mail id",
+              },
+            ]}
+            hasFeedback
           >
-            Reset
-          </Button>
-          </div>
-        </Form.Item>
-      </Form>
-      {already ? (
-        <Text className='already_exist' type='danger' strong>
-          Mail id is already exist!
-        </Text>
-      ) : null}
-      <div className="exist_submit">
-      <Text className='text' strong>
-        Already have an account?
-        <Button type='link' onClick={() => navigate("/login")}>
-          Login
-        </Button>
-      </Text>
-      {start ? (
-        <Button
-          className='start_button'
-          type='primary'
-          size="large"
-          onClick={() => navigate("/quiz")}
-        >
-          Start Quiz
-        </Button>
-      ): null}
+            <Input
+              placeholder='Email'
+              prefix={<MailOutlined className='site-form-item-icon' />}
+            />
+          </Form.Item>
+          <Form.Item
+            className='signup_item'
+            name='password'
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+              {
+                pattern:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
+                message: "Please enter valid password",
+              },
+              { min: 6 },
+            ]}
+            hasFeedback
+          >
+            <Input.Password
+              placeholder='Password'
+              prefix={<LockOutlined className='site-form-item-icon' />}
+            />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 1, span: 16 }}>
+            <div className='signup_button'>
+              <Button
+                size='large'
+                type='primary'
+                htmlType='submit'
+              >
+                Submit
+              </Button>
+              <Button size='large' htmlType='button' onClick={onReset}>
+                Reset
+              </Button>
+            </div>
+          </Form.Item>
+        </Form>
+        <div>
+        {start ? <div className="signup_message">
+        <Alert style={{width: 300}} showIcon type="success" message="Signup success! Redirecting you now..."/>
+        </div> : null}
+        </div>
       </div>
+      <div>
+        {already ? (
+          <Text className='signup_already_mail' type='danger' strong>
+            Mail id is already exist!
+          </Text>
+        ) : null}
+      </div>
+      {/* <div>
+        <Text className='signup_already' strong>
+          Already have an account?
+          <Button type='link' onClick={() => navigate("/login")}>
+            Login
+          </Button>
+        </Text>
+        <div className='signup_start_button'>
+        </div>
+      </div> */}
     </div>
   );
 }

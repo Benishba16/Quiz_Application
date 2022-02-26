@@ -1,0 +1,39 @@
+.question{
+    /* border: 2px solid maroon; */
+    padding: 40px;
+}
+
+.question_entire{
+    /* border: 2px solid black; */
+    width: 60vw;
+    display: inline-block;
+}
+
+.question_title{
+    /* border: 2px solid yellow; */
+    text-align: left;
+}
+
+.question_text{
+    /* border: 2px solid green; */
+    display: inline-block;
+}
+
+.question_options{
+    /* border: 2px solid violet; */
+    display: inline-block;
+}
+
+.question_buttons{
+    /* border: 2px solid honeydew; */
+    margin-left: -20px;
+    width: 50vw;
+    padding: 10px;
+}
+
+.next_button{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: end;
+    /* padding: 10px; */
+}

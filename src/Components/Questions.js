@@ -2,10 +2,9 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import { questionValue } from "../Redux/actions";
-import DisplayQuestion from "../Components/DisplayQuestion";
-import { Button, Typography } from "antd";
+import { Button, Typography, Image } from "antd";
 import { useNavigate } from "react-router-dom";
-
+import "./Questions.css";
 const { Title, Text } = Typography;
 
 function Questions(props) {
@@ -27,20 +26,22 @@ function Questions(props) {
 
   return (
     <div>
-      <Title>Welcome To Online Quiz</Title>
-      <div>
-        <Text style={{ fontSize: 30 }} strong>
+      <Title className="welcome_title" style={{color: "white", fontFamily: "'ZCOOL QingKe HuangYou', cursive", fontSize: 50}}>Quiz</Title>
+      <div className="display_quiz">
+      <div className="display_mode">
+        <Text style={{ fontSize: 50 , fontFamily: "'Source Code Pro', monospace", color: "#1890ff"}} strong>
           Category : {props.category}
         </Text>
-      </div>
-      <div>
-        <Text style={{ fontSize: 20 }} strong>
+        <br/>
+        <Text style={{ fontSize: 30 , fontFamily: "'Source Code Pro', monospace", color: "#1890ff"}} strong>
           Difficulty Mode : {props.mode}
         </Text>
-      </div>
-      <div>
-        <Button type="primary" size="large" onClick={() => navigate("/question")}>Start Quiz</Button>
-      </div>
+        <div className="display_button">
+        <Button size="large" type="primary" onClick={() => navigate("/question")}>Start Quiz</Button>
+        </div>
+        </div>
+        <Image className="display_image" width={650} src="https://thumbs.dreamstime.com/b/quiz-word-notepaper-hand-human-117727336.jpg"/>
+        </div>
     </div>
   );
 }

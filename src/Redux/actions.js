@@ -1,4 +1,4 @@
-import { CATEGORY_VALUE, QUESTION_INDEX, QUESTION_VALUE, SCORE_VALUE, TYPE_VALUE } from "./actionTypes"
+import { ATTEMPT_VALUE, CATEGORY_VALUE, QUESTION_INDEX, QUESTION_VALUE, SCORE_VALUE, TYPE_VALUE } from "./actionTypes"
 
 export const categoryValue = category => {
     return{
@@ -33,6 +33,14 @@ export const scoreValue = score => {
     let num = score + 1
     return{
         type: SCORE_VALUE,
+        payload: num
+    }
+}
+
+export const attemptValue = attempt => {
+    let num = attempt + 1;
+    return{
+        type: ATTEMPT_VALUE,
         payload: num
     }
 }

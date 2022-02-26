@@ -79,6 +79,7 @@ function StartQuiz(props) {
           type='primary'
           htmlType='submit'
           onClick={() => navigate("/mode")}
+
         >
           Start Quiz
         </Button>

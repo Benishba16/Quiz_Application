@@ -1,14 +1,6 @@
-/* .quiz_total{ */
-    /* height: 25vh; */
-/* } */
-
-.quiz_title{
-    margin: 100px;
-}
-
 .quiz_text{
-    margin-top: -100px;
-    margin-left: 470px;
-    /* display: flex; */
-    width: 25vw;
+    padding: 50px;
+    width: 30vw;
+    display: inline-block;
+    font-family: 'Righteous', cursive;
 }

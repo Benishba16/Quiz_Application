@@ -1,22 +1,26 @@
-.questions{
-    width: 50vw;
-    height: 70vh;
-    padding: 20px;
-    margin: auto;
-    margin-left: 25%;
-    margin-top: 6%;
-    /* background-color: #ade8f4; */
-    background-color: #c0fdff;
-    border-radius: 20px;
+.welcome_title{
+    /* border: 2px solid red; */
+    padding: 15px;
+    text-align: left;
+    background-color: #1890ff;
 }
 
-.options{
-    margin-left: 130px;
-    margin-top: 30px;
-    width: 25vw;
+.display_quiz{
+    /* border: 2px solid skyblue; */
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
+/* .display_mode{
+    border: 2px solid green;
+} */
+
+/* .display_image{
+    border: 2px solid yellow;
+} */
+
+.display_button{
+    /* border: 2px solid brown; */
+    padding: 20px;
+}

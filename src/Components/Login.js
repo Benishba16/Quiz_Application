@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Input, Typography } from "antd";
+import { Form, Button, Input, Typography, Card, Alert } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ function Login() {
 
   const [check, setCheck] = useState(false);
   const [valid, setValid] = useState(false);
+  const [disable, setDisable] = useState(false);
 
   const onFinish = (values) => {
     console.log(values);
@@ -27,7 +28,11 @@ function Login() {
       setCheck(!check);
     } else if (mail === values.email && password === values.password) {
       setValid(!valid);
+      setDisable(!disable);
+      // setInterval(() => navigate("/quiz"),1500)
+      navigate("/quiz");
     }
+    form.resetFields();
   };
 
   const onReset = () => {
@@ -35,16 +40,18 @@ function Login() {
     if (check) {
       setCheck(!check);
     }
+    // if (valid) {
+    //   setValid(!valid);
+    // }
   };
 
   return (
-    <div className='login'>
+    <div>
       <Title className='login_title'>Login</Title>
       <Form
         size='large'
         name='basic'
-        labelCol={{ span: 7 }}
-        wrapperCol={{ span: 10 }}
+        wrapperCol={{ span: 19 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete='off'
@@ -52,7 +59,7 @@ function Login() {
         className='login_form'
       >
         <Form.Item
-          label='Email'
+          className='login_item'
           name='email'
           rules={[
             {
@@ -61,79 +68,45 @@ function Login() {
             },
           ]}
         >
-          <Input prefix={<MailOutlined className='site-form-item-icon' />} />
+          <Input
+            placeholder='Email'
+            prefix={<MailOutlined className='site-form-item-icon' />}
+          />
         </Form.Item>
         <Form.Item
-          label='Password'
+          className='login_item'
           name='password'
           rules={[
             {
               required: true,
-              message: "Please input your mail",
+              message: "Please input your password",
             },
           ]}
         >
           <Input.Password
+            placeholder='Password'
             prefix={<LockOutlined className='site-form-item-icon' />}
           />
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 5, span: 13 }}>
-          <div className='button'>
-            <Button
-              className='submit_button'
-              size='large'
-              type='primary'
-              htmlType='submit'
-            >
-              Submit
-            </Button>
-            <Button
-              className='reset_button'
-              size='large'
-              htmlType='button'
-              onClick={onReset}
-            >
-              Reset
-            </Button>
+        <Form.Item wrapperCol={{ offset: 2, span: 13 }}>
+          <div className="login_button">
+          <Button disabled={disable} size='large' type='primary' htmlType='submit'>
+            Submit
+          </Button>
+          <Button size='large' htmlType='button' onClick={onReset}>
+            Reset
+          </Button>
           </div>
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 5, span: 13 }}>
-          {check ? (
-            <Text
-              className='danger_message'
-              className='check_text'
-              strong
-              type='danger'
-            >
-              Please check above details are valid or not!
-            </Text>
-          ) : null}
-        </Form.Item>
-        <Form.Item className='start_button'>
-          {valid ? (
-            <Button
-              size='large'
-              type='primary'
-              htmlType='submit'
-              style={{ width: 150 }}
-              onClick={() => navigate("/quiz")}
-            >
-              Start Quiz
-            </Button>
-          ) : null}
-        </Form.Item>
       </Form>
-      <br />
-      {/* <Button
-        style={{ width: 150 }}
-        size='large'
-        type='primary'
-        htmlType='submit'
-        className='back_button'
-        onClick={() => navigate("/")}
-      >
-        Back to Signup
-      </Button> */}
+      <div>
+      {check ? (
+        <Text className="login_check" strong type='danger'>
+          Check your email and password or
+          create an account.
+        </Text>
+      ) : null}
+      </div>
     </div>
   );
 }
