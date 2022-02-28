@@ -41,7 +41,7 @@ function FrontPage() {
           className='quiz_title'
           style={{
             color: "#1890ff",
-            fontFamily: "'Lobster', cursive",
+            fontFamily: "'ZCOOL QingKe HuangYou', cursive",
             fontSize: 70,
           }}
         >
@@ -68,7 +68,7 @@ function FrontPage() {
           <Text
             className='online_quiz'
             strong
-            style={{ fontSize: 45, fontFamily: "'Lobster', cursive" }}
+            style={{ fontSize: 45, fontFamily: "'ZCOOL QingKe HuangYou', cursive" }}
           >
             Welcome to Online Quiz
           </Text>

@@ -4,3 +4,11 @@
     display: inline-block;
     font-family: 'Righteous', cursive;
 }
+
+@media (max-width: 480px) {
+    .quiz_text{
+        width: 100vw;
+        height: 50vh;
+        /* border: 2px solid red; */
+    }
+}

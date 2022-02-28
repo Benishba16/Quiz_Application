@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
-import { Button, Typography, Modal, Progress } from "antd";
+import { Button, Typography, Modal, Progress, Card } from "antd";
 import { useNavigate } from "react-router-dom";
 import { attemptValue, questionIndex, scoreValue } from "../Redux/actions";
 import { useState } from "react";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import DisplayQuestion from "./DisplayQuestion";
 import Review from "./Review";
+import "./Score.css";
 
 const { Title, Text } = Typography;
 
@@ -26,7 +27,7 @@ function Score(props) {
   const handleHome = () => {
     props.onQuestionIndex(-1);
     props.onScoreValue(-1);
-    props.onAttemptValue(-1);
+    props.onAttemptValue(0);
     navigate("/quiz");
   };
 
@@ -38,65 +39,51 @@ function Score(props) {
   return (
     <div>
       <Title>Score Board</Title>
-      <div>
-        <Button type='primary' onClick={() => setModal(true)}>
-          Your Score
-        </Button>
-        <Modal
-          title='Score Board'
-          visible={modal}
-          onOk={() => setModal(false)}
-          onCancel={() => setModal(false)}
-        >
+      <Card hoverable className="score_card">
+      <div className="score_button">
+            <Button size="large" type='primary' onClick={handleHome}>
+              Back to Home
+            </Button>
+            </div>
+          <div className="score_title">
           <Title>Your Score is {props.score}</Title>
-          {/* <Progress percent={props.score * 10 * props.questions.length}>
-            {props.score}
-          </Progress> */}
-          <div>
+          </div>
+            <div className="score_text">
             <Text style={{ fontSize: 17 }}>
               Total number of Questions - {props.questions.length}
             </Text>
-            <br />
             <Text style={{ fontSize: 17 }}>
               Total number of Attempts - {props.attempt}
             </Text>
-            <br />
             <Text style={{ fontSize: 17 }}>
-              Number of <CloseOutlined /> Attempts -{" "}
+              Number of <CloseOutlined /> Attempts -
               {props.questions.length - props.score}
             </Text>
-          </div>
-        </Modal>
-      </div>
-      <br />
-      <div>
-        {props.score > localStorage.getItem("HighestScore") &&
-          localStorage.setItem("HighestScore", props.score)}
-      </div>
-      <div>
-        <Button onClick={handleClick} type='primary'>
-          Restart
-        </Button>
-      </div>
-      <br />
-      <div>
+            </div>
+            <div>
+            <Button onClick={handleClick} type='primary'>
+              Restart
+            </Button>
+            <Button type='primary' onClick={handleReview}>
+              Review
+            </Button>
+            </div>
+            <Modal
+              title='Review'
+              visible={reviewModal}
+              onOk={() => setReviewModal(false)}
+              onCancel={() => setReviewModal(false)}
+            >
+              <Review />
+            </Modal>
+      </Card>
+      {/* <div>
         <Button type='primary' onClick={handleHome}>
           Back to Home
         </Button>
-      </div>
-      <div>
-        <Button type='primary' onClick={handleReview}>
-          Review
-        </Button>
-        <Modal
-          title='Review'
-          visible={reviewModal}
-          onOk={() => setReviewModal(false)}
-          onCancel={() => setReviewModal(false)}
-        >
-          <Review />
-        </Modal>
-      </div>
+      </div> */}
+        {props.score > localStorage.getItem("HighestScore") &&
+          localStorage.setItem("HighestScore", props.score)}
     </div>
   );
 }

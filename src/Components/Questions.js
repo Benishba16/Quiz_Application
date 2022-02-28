@@ -26,22 +26,55 @@ function Questions(props) {
 
   return (
     <div>
-      <Title className="welcome_title" style={{color: "white", fontFamily: "'ZCOOL QingKe HuangYou', cursive", fontSize: 50}}>Quiz</Title>
-      <div className="display_quiz">
-      <div className="display_mode">
-        <Text style={{ fontSize: 50 , fontFamily: "'Source Code Pro', monospace", color: "#1890ff"}} strong>
-          Category : {props.category}
-        </Text>
-        <br/>
-        <Text style={{ fontSize: 30 , fontFamily: "'Source Code Pro', monospace", color: "#1890ff"}} strong>
-          Difficulty Mode : {props.mode}
-        </Text>
-        <div className="display_button">
-        <Button size="large" type="primary" onClick={() => navigate("/question")}>Start Quiz</Button>
+      <Title
+        className='welcome_title'
+        style={{
+          color: "white",
+          fontFamily: "'ZCOOL QingKe HuangYou', cursive",
+          fontSize: 50,
+        }}
+      >
+        Quiz
+      </Title>
+      <div className='display_quiz'>
+        <div className='display_mode'>
+          <Text
+            style={{
+              fontSize: 40,
+              fontFamily: "'Source Code Pro', monospace",
+              color: "#1890ff",
+            }}
+            strong
+          >
+            Category : {props.cat}
+          </Text>
+          <br />
+          <Text
+            style={{
+              fontSize: 30,
+              fontFamily: "'Source Code Pro', monospace",
+              color: "#1890ff",
+            }}
+            strong
+          >
+            Difficulty Mode : {props.mode}
+          </Text>
+          <div className='display_button'>
+            <Button
+              size='large'
+              type='primary'
+              onClick={() => navigate("/question")}
+            >
+              Start Quiz
+            </Button>
+          </div>
         </div>
-        </div>
-        <Image className="display_image" width={650} src="https://thumbs.dreamstime.com/b/quiz-word-notepaper-hand-human-117727336.jpg"/>
-        </div>
+        <Image
+          className='display_image'
+          width={650}
+          src='https://thumbs.dreamstime.com/b/quiz-word-notepaper-hand-human-117727336.jpg'
+        />
+      </div>
     </div>
   );
 }
@@ -50,6 +83,7 @@ const mapStateToProps = (state) => {
   return {
     category: state.category,
     mode: state.mode,
+    cat: state.cat,
   };
 };
 

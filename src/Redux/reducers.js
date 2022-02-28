@@ -1,9 +1,11 @@
 import {
   ATTEMPT_VALUE,
+  CATEGORY,
   CATEGORY_VALUE,
   QUESTION_INDEX,
   QUESTION_VALUE,
   SCORE_VALUE,
+  SELECTED_VALUES,
   TYPE_VALUE,
 } from "./actionTypes";
 
@@ -14,6 +16,8 @@ const initialState = {
   questionIndex: 0,
   score: 0,
   attempt: 0,
+  cat: "",
+  selectedValue: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -48,6 +52,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         attempt: action.payload,
       };
+    case CATEGORY:
+      return{
+        ...state,
+        cat : action.payload
+      }
+    case SELECTED_VALUES:
+      return{
+        ...state,
+        selectedValue: action.payload
+      }
     default:
       return state;
   }

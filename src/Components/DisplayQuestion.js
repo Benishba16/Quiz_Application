@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Button, Card, Typography, Space } from "antd";
-import { attemptValue, questionIndex, scoreValue } from "../Redux/actions";
+import { Button, Typography, Space, Spin } from "antd";
+import {
+  attemptValue,
+  questionIndex,
+  scoreValue,
+  setSelectedValues,
+} from "../Redux/actions";
 import { useNavigate } from "react-router-dom";
 import { decode } from "html-entities";
 import "./DisplayQuestion.css";
@@ -14,7 +19,7 @@ function DisplayQuestion(props) {
   const [options, setOptions] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(false);
   const [select, setSelect] = useState(null);
-  const [selctedValue, setSelectedValue] = useState([]);
+  const [selectedValue, setSelectedValue] = useState([]);
 
   let answer;
   if (props.questions.length) {
@@ -33,26 +38,31 @@ function DisplayQuestion(props) {
   }, [props.questions.length, props.questionIndex]);
 
   const handleClick = (e) => {
-    const selectAns = [];
-    props.onAttemptValue(props.attempt)
-    console.log("Attempt",props.attempt);
+    props.onAttemptValue(props.attempt);
+    console.log("Attempt", props.attempt);
     setSelectedAnswer(true);
-    setSelect(e.target.textContent);
-    if(e.target.textContent){
-      selectAns.push(e.target.textContent);
+    // setSelect(e.target.textContent);
+    if (e.target.textContent) {
+      console.log(e.target.textContent);
+      for (let i = 0; i < props.questions.length; i++) {
+        selectedValue.push(e.target.textContent);
+        break;
+      }
+      // setSelectedValue(selectedValue);
+      // console.log(selectedValue);
+      props.onSetSelectedValues(selectedValue)
     }
-    setSelectedValue(selectAns)
-    console.log(selctedValue);
+    // setSelectedValue(selectAns)
     if (e.target.textContent === answer) {
       props.onScoreValue(props.score);
       console.log(props.score);
+      console.log("Clicked");
     }
-    // if(props.questionIndex + 1 < props.questions.length){
-    // props.onQuestionIndex(props.questionIndex);
-    // }
-    // else{
-    //   navigate("/score")
-    // }
+    if (props.questionIndex + 1 < props.questions.length) {
+      props.onQuestionIndex(props.questionIndex);
+    } else {
+      navigate("/score");
+    }
   };
 
   const handleNext = () => {
@@ -62,41 +72,43 @@ function DisplayQuestion(props) {
       navigate("/score");
     }
   };
-
   return props.questions.length > 0 ? (
-    <div className='question'>
-      <Card className='question_entire' hoverable style={{ height: "500px" }}>
-        <Title className='question_title'>
-          Question {props.questionIndex + 1}
-        </Title>
-        <div className='question_text'>
-          <Text style={{ fontSize: 30 }}>
-            {decode(props.questions[props.questionIndex].question)}
-          </Text>
-        </div>
-        <div className='question_options'>
-          {options.map((option, id) => (
-            <div className='question_buttons'>
-              <Space>
-                <Button
-                  style={{ fontSize: "15px" }}
-                  key={id}
-                  onClick={handleClick}
-                >
-                  {decode(option)}
-                </Button>
-              </Space>
-            </div>
-          ))}
-        </div>
-        <div className='next_button'>
-          <Button size='large' type='primary' onClick={handleNext}>
-            Next
-          </Button>
-        </div>
-      </Card>
+    <div>
+        {console.log("Hi",selectedValue)}
+
+      <Title className='title' style={{ color: "white" }}>
+        Question {props.questionIndex + 1}
+      </Title>
+      <Text strong className='question' style={{ fontSize: 30 }}>
+        {decode(props.questions[props.questionIndex].question)}
+      </Text>
+      <div>
+        {options.map((option, id) => (
+          <div className='button_div'>
+            <Text
+              strong
+              style={{ fontSize: "20px", width: "100px", color: "white" }}
+              key={id}
+              onClick={handleClick}
+              // className="button"
+            >
+              {decode(option)}
+            </Text>
+          </div>
+        ))}
+      </div>
+      <div className='next_button'>
+        <Button size='large' type='primary' onClick={handleNext}>
+          Next
+        </Button>
+      </div>
+      {/* {props.onSetSelectedValues(selectedValue)} */}
     </div>
-  ) : null;
+  ) : (
+    <div className='spin'>
+      <Spin size='large' />
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {
@@ -105,7 +117,7 @@ const mapStateToProps = (state) => {
     questionIndex: state.questionIndex,
     questionIndex: state.questionIndex,
     score: state.score,
-    attempt: state.attempt
+    attempt: state.attempt,
   };
 };
 
@@ -118,8 +130,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(scoreValue(score));
     },
     onAttemptValue: (attempt) => {
-      dispatch(attemptValue(attempt))
-    }
+      dispatch(attemptValue(attempt));
+    },
+    onSetSelectedValues: (values) => {
+      dispatch(setSelectedValues(values));
+    },
   };
 };
 

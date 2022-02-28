@@ -4,7 +4,7 @@ import Categories from "./Categories";
 import "./StartQuiz.css";
 import QuizInfo from "../Components/QuizInfo";
 import { connect } from "react-redux";
-import { categoryValue, typeValue } from "../Redux/actions";
+import { categoryValue, typeValue, category } from "../Redux/actions";
 import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
@@ -15,14 +15,16 @@ function StartQuiz(props) {
 
   let [category, setCategory] = useState("");
   let [mode, setMode] = useState("");
+  let [cat, setCat] = useState("")
 
   const options = [
-    { id: 1, value: "easy" },
-    { id: 2, value: "medium" },
-    { id: 3, value: "hard" },
+    { id: "easy", value: "Easy" },
+    { id: "medium", value: "Medium" },
+    { id: "hard", value: "Hard" },
   ];
 
-  const handleCategory = (data) => {
+  const handleCategory = (data, value) => {
+    setCat(value.data)
     category = data;
     setCategory(category);
     console.log("Category", category);
@@ -35,10 +37,10 @@ function StartQuiz(props) {
     console.log("Mode", mode);
     props.onModeValue(mode);
   };
-
   
   return (
-    <div>
+    <div className="card">
+      {props.onCat(cat)}
       <div className='quiz_info'>
         <QuizInfo />
       </div>
@@ -50,9 +52,10 @@ function StartQuiz(props) {
             placeholder='Select a Category'
             onChange={handleCategory}
             style={{ width: 240 }}
+            className="selectCat"
           >
             {Categories.map((Category) => (
-              <Option key={Category.id} value={Category.id}>
+              <Option key={Category.id} value={Category.id} data={Category.category}>
                 {Category.category}
               </Option>
             ))}
@@ -64,9 +67,10 @@ function StartQuiz(props) {
             placeholder='Select Difficulty mode'
             onChange={handleType}
             style={{ width: 240 }}
+            className="selectCat"
           >
             {options.map((option) => (
-              <Option key={option.id} value={option.value}>
+              <Option key={option.id} value={option.id}>
                 {option.value}
               </Option>
             ))}
@@ -103,6 +107,9 @@ const mapDispatchToProps = (dispatch) => {
     onModeValue: (mode) => {
       dispatch(typeValue(mode));
     },
+    onCat : (cat) => {
+      dispatch(category(cat))
+    }
   };
 };
 
