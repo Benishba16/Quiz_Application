@@ -50,7 +50,7 @@ function DisplayQuestion(props) {
       }
       // setSelectedValue(selectedValue);
       // console.log(selectedValue);
-      props.onSetSelectedValues(selectedValue)
+      props.onSetSelectedValues(selectedValue);
     }
     // setSelectedValue(selectAns)
     if (e.target.textContent === answer) {
@@ -74,7 +74,7 @@ function DisplayQuestion(props) {
   };
   return props.questions.length > 0 ? (
     <div>
-        {console.log("Hi",selectedValue)}
+      {console.log("Hi", selectedValue)}
 
       <Title className='title' style={{ color: "white" }}>
         Question {props.questionIndex + 1}
@@ -84,13 +84,14 @@ function DisplayQuestion(props) {
       </Text>
       <div>
         {options.map((option, id) => (
-          <div className='button_div'>
+          // <div className='button_div'>
+          <div>
             <Text
               strong
-              style={{ fontSize: "20px", width: "100px", color: "white" }}
+              style={{ fontSize: "20px", color: "white", width: "50vw" }}
               key={id}
               onClick={handleClick}
-              // className="button"
+              className='button'
             >
               {decode(option)}
             </Text>

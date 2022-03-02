@@ -1,9 +1,8 @@
 .quiz_text{
     padding: 50px;
-    width: 30vw;
+    width: 90vw;
     display: inline-block;
-    font-family: 'Righteous', cursive;
-}
+    font-family: 'Pacifico', cursive;}
 
 @media (max-width: 480px) {
     .quiz_text{

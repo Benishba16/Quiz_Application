@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { Button, Typography, Modal, Progress, Card } from "antd";
+import { Button, Typography, Modal, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 import { attemptValue, questionIndex, scoreValue } from "../Redux/actions";
 import { useState } from "react";
@@ -7,6 +7,8 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import DisplayQuestion from "./DisplayQuestion";
 import Review from "./Review";
 import "./Score.css";
+import ScoreChart from "../Chart/ScoreChart";
+import { HomeTwoTone } from "@ant-design/icons"
 
 const { Title, Text } = Typography;
 
@@ -33,40 +35,25 @@ function Score(props) {
 
   const handleReview = () => {
     setReviewModal(true);
-    props.onQuestionIndex(-1);
-    props.onScoreValue(-1);
   };
   return (
     <div>
-      <Title>Score Board</Title>
-      <Card hoverable className="score_card">
+      <Title className="score_title">Your Score is {props.score}/ {props.questions.length}</Title>
+      <div>
+        <ScoreChart/>
+      </div>
       <div className="score_button">
-            <Button size="large" type='primary' onClick={handleHome}>
-              Back to Home
-            </Button>
+              <HomeTwoTone style={{fontSize: 40}} bordered={false} onClick={handleHome}/>
             </div>
-          <div className="score_title">
-          <Title>Your Score is {props.score}</Title>
-          </div>
-            <div className="score_text">
-            <Text style={{ fontSize: 17 }}>
-              Total number of Questions - {props.questions.length}
-            </Text>
-            <Text style={{ fontSize: 17 }}>
-              Total number of Attempts - {props.attempt}
-            </Text>
-            <Text style={{ fontSize: 17 }}>
-              Number of <CloseOutlined /> Attempts -
-              {props.questions.length - props.score}
-            </Text>
-            </div>
-            <div>
-            <Button onClick={handleClick} type='primary'>
+            <div className="restart_review">
+              <Space>
+            <Button size="large" onClick={handleClick} type='primary'>
               Restart
             </Button>
-            <Button type='primary' onClick={handleReview}>
+            <Button size="large" type='primary' onClick={handleReview}>
               Review
             </Button>
+            </Space>
             </div>
             <Modal
               title='Review'
@@ -76,12 +63,6 @@ function Score(props) {
             >
               <Review />
             </Modal>
-      </Card>
-      {/* <div>
-        <Button type='primary' onClick={handleHome}>
-          Back to Home
-        </Button>
-      </div> */}
         {props.score > localStorage.getItem("HighestScore") &&
           localStorage.setItem("HighestScore", props.score)}
     </div>
